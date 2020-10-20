@@ -2,13 +2,6 @@ package common_wealth_assignment;
 
 public interface AnagramGame {
 
-	/**
-	 * Construct an instance of the game.
-	 *
-	 * @parameter letterset The set of letters the player can use to construct words
-	 * @parameter wordlist URL for the word list to check against
-	 */
-	void AnagrameGame(String letterset, String wordlist);
 	
 	/**
 	 * Submit a word. A word is accepted if its letters are
