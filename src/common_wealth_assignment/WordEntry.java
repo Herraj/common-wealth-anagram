@@ -30,5 +30,9 @@ public class WordEntry {
 		this.value = value;
 	}
 	
+	@Override
+	public String toString() {
+		return("Word: " + key + ", Score: " + value);
+	}
 
 }
