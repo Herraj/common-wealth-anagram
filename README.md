@@ -16,3 +16,4 @@ Assuming you have java installed on your machine.
 #### Notes:
 * Although I am using a Java Interface that is implemented my Game class, the example interface that was provided didn't fit in my design. So I have omitted/modified the 'AnagramGame' method/constructor. 
 * In the example interface, it wanted to construct a game instance by providing a URL and a Letterset. My design generates a random letterset from the world list loaded from URL. 
+* There is still plenty of room to make improvements here. Defensive programming could be improved, adding try-catches and checking for edge cases for user inputs and other method arguments
