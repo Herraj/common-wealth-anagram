@@ -3,6 +3,7 @@ package common_wealth_assignment;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,7 +47,6 @@ public class Game implements AnagramGame {
 		for (int i = 0; i < highScores.length; i++) {
 			highScores[i] = new WordEntry("", 0);
 		}
-
 	}
 
 	// loading word data from the URL
@@ -74,8 +74,9 @@ public class Game implements AnagramGame {
 		List<String> letterSet = Arrays.asList(letterset.split(""));
 		List<String> submissionWord = Arrays.asList(word.split(""));
 
-		if (submissionWord.size() > letterSet.size())
+		if (submissionWord.size() > letterSet.size()) {
 			return false;
+		}
 		else {
 			for (String currentletter : submissionWord) {
 				if (Collections.frequency(submissionWord, currentletter) > Collections.frequency(letterSet,
@@ -109,7 +110,7 @@ public class Game implements AnagramGame {
 			highScores[lastIdx].setKey(userWord);
 			highScores[lastIdx].setValue(wordScore);
 		}
-		if ((wordScore > highScores[lastIdx].getValue()) && (wordScore < highScores[0].getValue())) {
+		if ((wordScore >= highScores[lastIdx].getValue()) || (wordScore <= highScores[0].getValue())) {
 			// find item to be replaced between 2nd and 2nd last
 			for (int i = 1; i < secondLastIdx; i++) {
 				if (wordScore > highScores[i].getValue()) {
@@ -136,7 +137,7 @@ public class Game implements AnagramGame {
 
 	}
 
-	// get a random shuffled word from the word map
+	// set currentLetterSet to a random shuffled word from the word map
 	public void setShuffledLetterSet() {
 		Random ran = new Random();
 		char randomLetterKey = (char) ('a' + ran.nextInt(26));
@@ -151,13 +152,37 @@ public class Game implements AnagramGame {
 	public String getCurrentLetterSet() {
 		return currentLetterSet;
 	}
+	
 	// calculate word score
 	public int getWordScore(String word) {
 		return word.length();
 	}
+	
 	// show score for user submitted word
 	public void showWordScore(String word) {
 		System.out.println("Word: " + word + ", score: " + getWordScore(word));
+	}
+	
+	// get WordMap (used for unit test only)
+	public Map<Character, List<String>> getWordMap(){
+		return this.wordMap;
+	}
+	
+	//load dummy high scores (used for unit test only)
+	public void loadDummyHighScores(ArrayList<WordEntry> dummyScores) {
+		if(dummyScores.size() != highScores.length) {
+			System.out.println("invalid dummy array");
+		}
+		else {
+			for(int i = 0; i < dummyScores.size(); i++) {
+				highScores[i] = dummyScores.get(i);
+			}
+		}
+	}
+
+	//get high score entry (used for unit test only)
+	public WordEntry getHighScoreEntry(int idx) {
+		return highScores[idx];
 	}
 	
 	//Run game 
