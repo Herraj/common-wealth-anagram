@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Game implements AnagramGame {
@@ -39,7 +40,9 @@ public class Game implements AnagramGame {
 
 	@Override
 	public void showHighScoreList() {
-		System.out.println(highScores.toString());
+		for(WordEntry entry : highScores) {
+			System.out.println(entry.toString());
+		}
 	}
 
 	// initialize high score array with empty strings and zero scores
@@ -187,12 +190,36 @@ public class Game implements AnagramGame {
 	
 	//Run game 
 	public void run() throws Exception {
-		//while
-		
+		Scanner userInput = new Scanner(System.in);
+		String userWord;
 		loadData();
 		initializeHighScores();
 		setShuffledLetterSet();
 		
+		do {
+			System.out.println("Press 1 to show next letterset. Press 2 to show high score list. Press 0 to exit");
+			System.out.println("Your letterset: " + getCurrentLetterSet());
+			
+			userWord = userInput.nextLine();
+			switch(userWord) {
+				case "1":
+					setShuffledLetterSet();
+					getCurrentLetterSet();
+					break;
+				case "2":
+					showHighScoreList();
+					break;
+				case "0":
+					System.out.println("Exiting game");
+					break;
+				default:
+					submitWord(userWord);
+					
+			}
+		}
+		while(!userWord.equals("0"));
+		
+		userInput.close();
 	}
 
 }
